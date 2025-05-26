@@ -1,0 +1,139 @@
+units:
+  px: u+2
+points:
+  zones:
+    main:
+      columns:
+        inner:
+          key:
+            column_net: P2
+            stagger: -0.15U
+        pinky:
+          key:
+            stagger: 0.22U
+            column_net: P3
+        ring:
+          key:
+            stagger: 0.5U
+            column_net: P4
+        middle:
+          key: 
+            stagger: 0.25U
+            column_net: P5
+        point:
+          key:
+            stagger: -0.58U
+            column_net: P6
+        pointfar:
+          key: 
+            stagger: -0.15U
+            column_net: P7
+      rows:
+        bot:
+          row_net: P8
+        mid:
+          row_net: P9
+        top:
+          row_net: P10
+        num:
+          row_net: P16
+    thumb:
+      anchor:
+        ref: main_pointfar_bot
+        shift: [-1.5U,-1.30U]
+        rotate: -7
+      rows:
+        main:
+          key:
+            row_net: P14
+      columns:
+        alt:
+          key:
+            column_net: P5
+        mod:
+          key:
+            column_net: P6
+        space:
+          key:
+            column_net: P7
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [px, px]
+  board:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: main_pinky_num
+          shift: [-1.5px,.5px]
+        - ref: main_ring_num
+          shift: [-1.5px,.5px]
+        - ref: main_middle_num
+          shift: [-.5px,.5px]
+        - ref: main_point_num
+          shift: [1.5px,1.5px]
+        - ref: main_pointfar_num
+          shift: [1.7px,1.7px]
+        - ref: main_pointfar_bot
+          shift: [1.7px,1.7px]
+        - ref: thumb_space_main
+          shift: [.7px,-.6px]
+        - ref: thumb_alt_main
+          shift: [-1.5px,-.5px]
+        - ref: main_pinky_bot
+          shift: [-1.5px,-.7px]
+      fillet: 2
+
+pcbs:
+  pleiades_l:
+    outlines:
+      main:
+        outline: board
+    footprints:
+      keys:
+        what: mx
+        where: true
+        params:
+          keycaps: true
+          reverse: true 
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      promicro:
+        what: promicro
+        where:
+          ref: main_pointfar_top
+          shift: [23,20]
+          rotate: -90
+        params:
+          orientation: up
+      diodes:
+        what: diode
+        where: true
+        adjust:
+          shift: [0, -4.7]
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+      trrs:
+        what: trrs
+        where:
+          ref: main_pointfar_mid
+          shift: [30,8]
+          rotate: -90
+        params:
+          A: GND
+          B: GND
+          C: P1
+          D: VCC
+          symmetric: true
+      reset:
+        what: button
+        where:
+          ref: main_pointfar_mid
+          shift: [28, 18]
+          rotate: 90
+        params:
+          from: RST
+          to: GND
+  pleiades_r:    
