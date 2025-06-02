@@ -8,35 +8,45 @@ points:
           key:
             column_net: P2
             stagger: -0.15U
+            mirror.column_net: P21
         pinky:
           key:
             stagger: 0.22U
             column_net: P3
+            mirror.column_net: P20
         ring:
           key:
             stagger: 0.5U
             column_net: P4
+            mirror.column_net: P19
         middle:
           key: 
             stagger: 0.25U
             column_net: P5
+            mirror.column_net: P18
         point:
           key:
             stagger: -0.58U
             column_net: P6
+            mirror.column_net: P15
         pointfar:
           key: 
             stagger: -0.15U
             column_net: P7
+            mirror.column_net: P14
       rows:
         bot:
           row_net: P8
+          mirror.row_net: P16
         mid:
           row_net: P9
+          mirror.row_net: P10
         top:
           row_net: P10
+          mirror.row_net: P9
         num:
           row_net: P16
+          mirror.row_net: P8
     thumb:
       anchor:
         ref: main_pointfar_bot
@@ -44,24 +54,40 @@ points:
         rotate: -7
       rows:
         main:
-          key:
-            row_net: P14
       columns:
         alt:
           key:
             column_net: P5
+            row_net: P14
+            mirror.column_net: P18
+            mirror.row_net: P7
         mod:
           key:
             column_net: P6
+            row_net: P14
+            mirror.column_net: P15
+            mirror.row_net: P7
         space:
           key:
             column_net: P7
+            row_net: P14
+            mirror.column_net: P14
+            mirror.row_net: P7
+  
+  mirror: &mirror
+    ref: thumb_space_main
+    distance: 6u
+
 outlines:
   raw:
     - what: rectangle
       where: true
       size: [px, px]
-  board:
+  keys:
+   - what: rectangle
+     where: true
+     size: [u,u]
+  board_left:
     - what: polygon
       operation: stack
       points:
@@ -84,19 +110,48 @@ outlines:
         - ref: main_pinky_bot
           shift: [-1.5px,-.7px]
       fillet: 2
-
+  combo_left:
+    - name: board_left
+    - operation: subtract
+      name: keys    
+  board_right:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: mirror_main_pinky_num
+          shift: [-1.5px,.5px]
+        - ref: mirror_main_ring_num
+          shift: [-1.5px,.5px]
+        - ref: mirror_main_middle_num
+          shift: [-.5px,.5px]
+        - ref: mirror_main_point_num
+          shift: [1.5px,1.5px]
+        - ref: mirror_main_pointfar_num
+          shift: [1.7px,1.7px]
+        - ref: mirror_main_pointfar_bot
+          shift: [1.7px,1.7px]
+        - ref: mirror_thumb_space_main
+          shift: [.7px,-.6px]
+        - ref: mirror_thumb_alt_main
+          shift: [-1.5px,-.5px]
+        - ref: mirror_main_pinky_bot
+          shift: [-1.5px,-.7px]
+      fillet: 2
+  combo_right:
+    - name: board_right
+    - operation: subtract
+      name: keys
 pcbs:
   pleiades_l:
     outlines:
       main:
-        outline: board
+        outline: board_left
     footprints:
       keys:
         what: mx
-        where: true
+        where: /^main|^thumb/
         params:
           keycaps: true
-          reverse: true 
           from: "{{column_net}}"
           to: "{{colrow}}"
       promicro:
@@ -109,7 +164,7 @@ pcbs:
           orientation: up
       diodes:
         what: diode
-        where: true
+        where: /^main|^thumb/
         adjust:
           shift: [0, -4.7]
         params:
@@ -136,4 +191,54 @@ pcbs:
         params:
           from: RST
           to: GND
-  pleiades_r:    
+
+  pleiades_r:
+    outlines:
+      main:
+        outline: board_right
+    footprints:
+      keys:
+        what: mx
+        where: /^mirror/
+        params:
+          keycaps: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      promicro:
+        what: promicro
+        where:
+          ref: mirror_main_pointfar_top
+          shift: [23,20]
+          rotate: 90
+        params:
+          orientation: up
+      diodes:
+        what: diode
+        where: /^mirror/
+        adjust:
+          shift: [0, -4.7]
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+      trrs:
+        what: trrs
+        where:
+          ref: mirror_main_pointfar_mid
+          shift: [30,8]
+          rotate: -90
+        params:
+          A: GND
+          B: GND
+          C: P1
+          D: VCC
+          symmetric: true
+      reset:
+        what: button
+        where:
+          ref: mirror_main_pointfar_mid
+          shift: [28, 18]
+          rotate: 90
+        params:
+          from: RST
+          to: GND
+          
