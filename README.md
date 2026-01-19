@@ -5,7 +5,7 @@ This keyboard features double Atmega 32u4 microprocessors as well as Vial suppor
 note* this is first version and it will be further imrpoved with future designs.  
 
 ![Photo1](./photos/photo1.jpg)
-![Photo2](./photos/photo2,jpg)  
+![Photo2](./photos/photo2.jpg)  
 ## Requirements 
 ### Parts 
 | Part name | Quantity | link |
