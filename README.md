@@ -7,6 +7,7 @@ note* this is first version and it will be further imrpoved with future designs.
 ## Requirements 
 ### Parts 
 | Part name | Quantity | link |
+|----------------|-----|------------| 
 | Atmega 32u4 | 2 | [aliexpress](https://pl.aliexpress.com/item/1005004782408708.html?dp=6914f10dc7fc160512591b8a&cn=ah&aff_fcid=eee0c94e7a554dbb9003fa6172967f3c-1768840323412-05495-_d6jWDbY&aff_fsk=_d6jWDbY&aff_platform=link-c-tool&sk=_d6jWDbY&aff_trace_key=eee0c94e7a554dbb9003fa6172967f3c-1768840323412-05495-_d6jWDbY&terminal_id=4cb5ad5188764f539724dc31512667a9&afSmartRedirect=y) |
 | 4 pin buttons | 2 | [aliexpress](https://pl.aliexpress.com/item/1005004067514307.html?spm=a2g0o.order_list.order_list_main.37.7a171c242sNorV&gatewayAdapt=glo2pol) | 
 | TRRS ports | 2 | [aliexpress](https://pl.aliexpress.com/item/1005003111662179.html?spm=a2g0o.order_list.order_list_main.57.7a171c242sNorV&gatewayAdapt=glo2pol) | 
@@ -59,9 +60,9 @@ make [name]:vial:avrdude-split-right
 ```
 lastly connect them together.  
 ## Configuration
-## Modify keymap.c file
+### Modify keymap.c file
 I don't recommend this method but you can directly modify the keymap in this file. Please not that you will have to flash again.
-## Vial 
+### Vial 
 You can use vial configurator as well. This is the *recommended* method. Just visit the [vial](https://vial.rocks/) website or download vial configurator from [here](https://get.vial.today/download/)
 
 ## Features
